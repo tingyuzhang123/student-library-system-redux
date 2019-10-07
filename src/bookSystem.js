@@ -1,0 +1,1 @@
+export default connect(1,2)(SL);
