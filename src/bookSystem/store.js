@@ -1,4 +1,3 @@
-import {createStore} from './node_modules/redux';
-import {reducer} from './systemReducer/index'
+import {createStore} from 'redux';
+import {reducer} from './systemReducer/reducer'
 export const store = createStore(reducer);
-console.log(store.getState())
