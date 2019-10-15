@@ -9,16 +9,16 @@ export class BookLists extends React.Component {
       temBookNumbers: {}
     };
   }
-  static getDerivedStateFromProps(props, state) {
-    if (props.selectedStudent !== state.selectedStudent) {
-      return {
-        selectedStudent: props.selectedStudent,
-        temBookNumbers: {}
-      };
-    }
+  // static getDerivedStateFromProps(props, state) {
+  //   if (props.selectedStudent !== state.selectedStudent) {
+  //     return {
+  //       selectedStudent: props.selectedStudent,
+  //       temBookNumbers: {}
+  //     };
+  //   }
 
-    return null;
-  }
+  //   return null;
+  //}
   /*selectedBookList = event => {
     let { studentBookList, bookNumbers } = this.state;
     Object.keys(bookNumbers).map(key => {
@@ -91,7 +91,7 @@ export class BookLists extends React.Component {
         <button
           onClick={() => {
              onBookChangedRedux(temBookNumbers);
-             this.setState({ tempBookNumbers: {} });
+             this.setState({ temBookNumbers: {} });
               }}>
           Submit
         </button>

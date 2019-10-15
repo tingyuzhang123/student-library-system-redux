@@ -20,14 +20,14 @@ class StudentList extends React.Component {
 
   render() {
     let { isShowedBookList} = this.state;
-    const {selectedStudent,student,isSelected,onBookReturnedRedux}=this.props;
+    const {selectedStudent,student,isSelected,onBookReturnedRedux,showStudentListRedux}=this.props;
 
     return (
       <div>
         <h2> Library </h2>
         <label> Choose Student </label>
         <br />
-        <select onChange={this.props.showStudentListRedux}>
+        <select onChange={showStudentListRedux}>
           {!isSelected&&<option>Please select:</option>}
           { Object.keys(student).map(this.createStudentOptions)}
         </select>

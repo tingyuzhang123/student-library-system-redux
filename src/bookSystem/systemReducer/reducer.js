@@ -19,12 +19,13 @@ const initState = {
     };
 
     export const reducer=(state=initState,action)=>{
+      const { student, selectedStudent, bookNumbers } = state;
       switch (action.type) {
         case SHOW_STUDENT_LIST:
-            return { ...state, selectedStudent: action.studentName,isSelected:true};
+          const studentName = action.studentName
+            return { ...state, selectedStudent: studentName,isSelected:true};
         case SUBMIT_BOOKS:
             const tempBookSelect = action.tempBookSelect;
-            const { student, selectedStudent, bookNumbers } = state;
             Object.keys(tempBookSelect).map((bookName) => {
               const bookSelected = tempBookSelect[bookName];
               if (bookSelected) {
