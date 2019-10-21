@@ -1,5 +1,5 @@
 import React from "react";
-import BL from "./bookList";
+import BookList from "./bookList";
 import { connect } from 'react-redux';
 import {showStudentList} from './bookSystem/systemReducer/actionsCreator';
 import {createBookReturnAction} from './bookSystem/systemReducer/actionsCreator';
@@ -9,7 +9,7 @@ class StudentList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShowedBookList: false
+      isShowedBookList: true
     };
   }
   createStudentOptions = (studentName)=> { 
@@ -19,7 +19,7 @@ class StudentList extends React.Component {
 
 
   render() {
-    let { isShowedBookList} = this.state;
+    let {isShowedBookList} = this.state;
     const {selectedStudent,student,isSelected,onBookReturnedRedux,showStudentListRedux}=this.props;
 
     return (
@@ -32,29 +32,16 @@ class StudentList extends React.Component {
           { Object.keys(student).map(this.createStudentOptions)}
         </select>
         {isSelected && (
-          <React.Fragment>
-            <button
-              onClick={() => {
-                this.setState({
-                  isShowedBookList: true
-                });
-              }}
-            >
-              Borrow Book
-            </button>
-            {isShowedBookList && (
-              <React.Fragment>
-               <BL></BL>
-              </React.Fragment>
-            )}
+          <>
+        {isShowedBookList && <BookList/>}
+        
             <p> Borrowed Book: </p>
             {/* {Object.keys(student).map(studentName => { */}
               {/* const books = student[selectedStudent]; */}
                 {/* return ( */}
-                  <React.Fragment>
-                    <span>
+                  <>
                       {Object.keys(student[selectedStudent]).map((bookName) => {
-                      return <React.Fragment>
+                      return <>
                         {(student[selectedStudent][bookName])&& <p>{selectedStudent + ' borrowed: ' + bookName}
                          <button
                       onClick={() => {
@@ -65,12 +52,13 @@ class StudentList extends React.Component {
                       return
                     </button>
                     </p>}
-                  </React.Fragment>
+                  </>
+                  
                       })}
-                      </span>
-                      </React.Fragment>
-     </React.Fragment>
-    )}
+                      </>
+                      </>)}
+
+    
     </div>
     )}
             }

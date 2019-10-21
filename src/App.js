@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import {store} from './bookSystem/store';
 import {Provider} from 'react-redux';
-import SL from'./StudentList';
+import StudentList from'./StudentList';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <Provider store={store}>
-          <SL />
+          <StudentList />
         </Provider>
       </header>
     </div>

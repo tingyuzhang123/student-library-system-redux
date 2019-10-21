@@ -36,13 +36,13 @@ const initState = {
                   bookNumbers[bookName]--;
               }
           });
-            return { student, bookNumbers};
+            return { ...state, student:{...student},bookNumbers};
         case RETURN_BOOKS:
             const bookName = action.bookName;
             student[selectedStudent][bookName]=false;
             bookNumbers[bookName]++;
             return{
-              student, bookNumbers
+              ...state, student:{...student}, bookNumbers
             };
         default:
             return state;
