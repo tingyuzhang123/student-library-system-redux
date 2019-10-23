@@ -1,4 +1,5 @@
-import { SHOW_STUDENT_LIST, RETURN_BOOKS, SUBMIT_BOOKS } from './actionsCreator';
+import { SHOW_STUDENT_LIST, RETURN_BOOKS, SUBMIT_BOOKS, FETCH_BOOKS, fetchBooks, FETCH_BOOKS_SUCCESS, FETCH_BOOKS_FAILURE } from './actionsCreator';
+import axios from 'axios';
 const initState = {
   student: {
     'Fiona': {},
@@ -7,15 +8,32 @@ const initState = {
     'Jane': {}
   },
   selectedStudent: null,
-  bookNumbers: {
-    'book1': 5,
-    'book2': 7,
-    'book3': 9,
-    'book4': 3,
-    'book5': 1
-  },
+  bookNumbers: null,
   isSelected: false,
   isShowedBookList: false
+};
+
+const fetchBooksFunction = () => {
+  axios.get('https://fakerestapi.azurewebsites.net/api/Books').then(
+    (response) => {
+      console.log(response);
+      return response.data;
+      // this.setState({ countries: response.data, selectedCountries: [{}] });
+    }
+  ).catch(
+    (e) => {
+      console.error(e);
+    }
+  );
+  // immidiate
+  return;
+  // return {
+  //   'book1': 5,
+  //   'book2': 7,
+  //   'book3': 9,
+  //   'book4': 3,
+  //   'book5': 1
+  // };
 };
 
 export const reducer = (state = initState, action) => {
@@ -44,6 +62,17 @@ export const reducer = (state = initState, action) => {
       bookNumbers[bookName]++;
       return {
         ...state, student: { ...student, updated: true }, bookNumbers
+      };
+    case FETCH_BOOKS_SUCCESS:
+      const bookNumbers = action.books;
+      return {
+        ...state,
+        bookNumbers
+      };
+    case FETCH_BOOKS_FAILURE:
+      return {
+        ...state,
+        error: action.e
       };
     default:
       return state;

@@ -1,14 +1,30 @@
 import React from "react";
 import BL from "./bookList";
+import axios from 'axios';
 import { connect } from 'react-redux';
-import { showStudentList } from './bookSystem/systemReducer/actionsCreator';
-import { createBookReturnAction } from './bookSystem/systemReducer/actionsCreator';
-
+import { showStudentList, fetchBooksSuccess, createBookReturnAction } from './bookSystem/systemReducer/actionsCreator';
 
 class StudentList extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  componentDidMount() {
+    this.props.fetchBooks();
+    // axios.get('https://fakerestapi.azurewebsites.net/api/Books').then(
+    //   (response) => {
+    //     console.log(response);
+    //     this.props.fetchBooksSuccess(response.data);
+    //     // this.setState({ countries: response.data, selectedCountries: [{}] });
+    //   }
+    // ).catch(
+    //   (e) => {
+    //     console.error(e);
+    //   }
+    // );
+
+  }
+
   createStudentOptions = (studentName) => {
     return <option key={studentName} value={studentName}>{studentName}</option>;
   };
@@ -22,6 +38,7 @@ class StudentList extends React.Component {
       <div>
         <h2> Library </h2>
         <label> Choose Student </label>
+        {this.props.error && <p>{this.props.error}</p>}
         <br />
         <select onChange={showStudentListRedux}>
           {!isSelected && <option>Please select:</option>}
@@ -65,13 +82,15 @@ const mapStateToProps = (state) => {
     selectedStudent: state.selectedStudent,
     student: state.student,
     bookNumbers: state.bookNumbers,
-    isSelected: state.isSelected
+    isSelected: state.isSelected,
+    error: state.error,
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     showStudentListRedux: (event) => { dispatch(showStudentList(event.target.value)) },
-    onBookReturnedRedux: (bookName) => { dispatch(createBookReturnAction(bookName)) }
+    onBookReturnedRedux: (bookName) => { dispatch(createBookReturnAction(bookName)) },
+    fetchBooksSuccess: (books) => { dispatch(fetchBooksSuccess(books)) }
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(StudentList);
