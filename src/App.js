@@ -1,9 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {store} from './bookSystem/store';
-import {Provider} from 'react-redux';
-import SL from'./StudentList';
+import { store } from './bookSystem/store';
+import { Provider } from 'react-redux';
+import SL from './StudentList';
 
 function App() {
   return (
